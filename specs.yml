@@ -1,0 +1,15 @@
+openapi: '3.1.0'
+info:
+  title: Ring Signature API Service
+  description: This API allows to use the functionality of Rign Signature Methods (Linkabel Ring Signatures)
+  version: '1.0'
+paths:
+  /lrs/keygen:
+    post:
+      summary: Returns List with private and public keypairs
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type :
+  
