@@ -11,9 +11,9 @@ app.use(morgan('combined'));
 
 
 app.post('/lrs/keygen', (req, res) => {
-    var result = JSON.parse(JSON.stringify(req.body))
+    var request = JSON.parse(JSON.stringify(req.body))
     let userList = []
-    result["userList"].forEach(element => {
+    request["userList"].forEach(element => {
         var newUser = lrs.gen()
         userList.push(newUser)
     });
@@ -27,13 +27,14 @@ app.post('/lrs/sign', (req, res) => {
 })
 
 app.post('/lrs/verify', (req, res) => {
-    var result = JSON.parse(JSON.stringify(req.body))
-    return res.send(lrs.verify(result["group"], result['sig'], result['msg']))
+    var request = JSON.parse(JSON.stringify(req.body))
+    var group = (request["userList"].map((m) => m.publicKey))
+    return res.send(lrs.verify(group, request['sig'], request['msg']))
 })
 
 app.post('/lrs/link', (req, res) => {
-    var result = JSON.parse(JSON.stringify(req.body))
-    return res.send(lrs.link(result['sign1'], result['sign2']))
+    var request = JSON.parse(JSON.stringify(req.body))
+    return res.send(lrs.link(request['sign1'], request['sign2']))
 })
 
 let PORT = 8080
